@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">追剧影视</string>
+    <string name="search_hint_text">搜你想搜的</string>
+    <string name="bottom_nav_home_text">首页</string>
+    <string name="bottom_nav_hot_text">热门</string>
+    <string name="bottom_nav_me_text">我的</string>
+
+    <string name="video_station_header">VIP 观影区</string>
+</resources>

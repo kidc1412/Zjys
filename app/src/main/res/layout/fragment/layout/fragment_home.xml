@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.fragment.HomeFragment">
+
+    <FrameLayout
+        android:id="@+id/fm_home_search_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
+
+        <EditText
+            android:id="@+id/search_et"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/search_et_bg"
+            android:hint="@string/search_hint_text"
+            android:inputType="text"
+            android:textAlignment="center"
+            android:focusable="false"
+            android:cursorVisible="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </FrameLayout>
+
+
+    <!--<com.youth.banner.Banner
+        android:id="@+id/home_fragment_banner"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        app:indicator_drawable_selected="@drawable/banner_indicator_select"
+        app:indicator_height="@dimen/banner_dot_size"
+        app:indicator_margin="3dp"
+        app:indicator_width="@dimen/banner_dot_size"
+        android:visibility="gone">
+
+    </com.youth.banner.Banner>-->
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/video_station_rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>
