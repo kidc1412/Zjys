@@ -39,7 +39,7 @@ public class StateBarUtils {
      * 给status bar 设置自定义颜色
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public static void compat(Activity activity,int statusColor){
+    public static void compat(Activity activity, int statusColor){
 
         //当系统SDK为5.x时，直接使用API21提供的方法setStatusBarColor设置status bar的颜色
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
@@ -50,6 +50,7 @@ public class StateBarUtils {
         }
         //当系统SDK为4.4时，自定义一个与状态栏等高的View
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+            transparentStateBar(activity);
             int color = COLOR_DEFAULT;
             ViewGroup contentView = (ViewGroup) activity.findViewById(android.R.id.content);
             if(statusColor != INVALID_VAL){
@@ -69,7 +70,6 @@ public class StateBarUtils {
         int resourceId = context.getResources().getIdentifier("status_bar_height",
                 "dimen", "android");
         if(resourceId > 0){
-
             result = context.getResources().getDimensionPixelSize(resourceId);
         }
         return result;
