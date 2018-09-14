@@ -33,6 +33,7 @@ import cnzjys.zhuimj.zjys.model.entity.HomePageEntity;
 import cnzjys.zhuimj.zjys.model.entity.VideoStationEntity;
 import cnzjys.zhuimj.zjys.model.network.NetWork;
 
+import cnzjys.zhuimj.zjys.utils.StateBarUtils;
 import cnzjys.zhuimj.zjys.view.custom_view.DividerGridItemDecoration;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -57,6 +58,9 @@ public class HomeFragment extends Fragment implements OnBannerListener{
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private View mView;
+    private ViewGroup mSearchPanel;
+
     //List<String> mBannerImgList = new ArrayList<>();
     public HomeFragment() {
         // Required empty public constructor
@@ -93,21 +97,22 @@ public class HomeFragment extends Fragment implements OnBannerListener{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        mView = inflater.inflate(R.layout.fragment_home, container, false);
 
-        initView(view);
+        initView(mView);
         getHomePageData();
-        return view;
+        return mView;
     }
 
 
     private void initView(View view){
-        initVideoStationRv(view);
+        mSearchPanel = view.findViewById(R.id.fm_home_search_layout);
+        initHomeRv(view);
     }
 
 
-    private void initVideoStationRv(View view){
-       mHomeRv = view.findViewById(R.id.video_station_rv);
+    private void initHomeRv(View view){
+       mHomeRv = view.findViewById(R.id.fm_home_rv);
        mHomeRv.setLayoutManager(new GridLayoutManager(mContext, 4));
        mHomeRv.addItemDecoration(new DividerGridItemDecoration(mContext));
 
@@ -116,13 +121,6 @@ public class HomeFragment extends Fragment implements OnBannerListener{
             @Override
             public int getSpanSize(GridLayoutManager gridLayoutManager, int position) {
                 int type = mMultipleItems.get(position).getItemType();
-                /*if (type == HomeMultipleItem.BANNER) {
-                    return HomeMultipleItem.BANNER_SPAN_SIZE;
-                }else if (type == HomeMultipleItem.BROADCAST){
-                  return HomeMultipleItem.BROADCAST_SPAN_SIZE;
-                } else {
-                    return HomeMultipleItem.VIP_SPAN_SIZE;
-                }*/
                 switch (type){
                     case HomeMultipleItem.BANNER:
                         return HomeMultipleItem.BANNER_SPAN_SIZE;

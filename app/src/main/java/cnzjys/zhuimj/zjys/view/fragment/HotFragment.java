@@ -4,11 +4,13 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import cnzjys.zhuimj.zjys.R;
+import cnzjys.zhuimj.zjys.utils.StateBarUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +31,9 @@ public class HotFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private Toolbar mToolbar;
+    private Context mContext;
 
     public HotFragment() {
         // Required empty public constructor
@@ -64,8 +69,14 @@ public class HotFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_hot, container, false);
+        View view = inflater.inflate(R.layout.fragment_hot, container, false);
+        initView(view);
+        return view;
+    }
+
+    private void initView(View view){
+        mToolbar = view.findViewById(R.id.fm_hot_toolbar);
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -84,6 +95,7 @@ public class HotFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+        mContext = context;
     }
 
     @Override

@@ -7,7 +7,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RadioButton;
 
 import java.util.ArrayList;
@@ -34,23 +33,19 @@ public class MainActivity extends AppCompatActivity implements
     private RadioButton mHomeTabRb;
     private RadioButton mHotTabRb;
     private RadioButton mMeTabRb;
-    private View mStateBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        StateBarUtils.transparentStateBar(this);
         initView();
         initListener();
     }
 
     private void initView(){
-        mStateBar = findViewById(R.id.main_state_bar_view);
-        ViewGroup.LayoutParams stateBarParams = mStateBar.getLayoutParams();
-        stateBarParams.height = StateBarUtils.getStatusBarHeight(this);
-        mStateBar.setLayoutParams(stateBarParams);
+        //设置状态栏颜色
+        StateBarUtils.compat(this, getResources().getColor(R.color.colorPrimary));
 
         mHomeTabRb = findViewById(R.id.home_tab_rb);
         mHotTabRb = findViewById(R.id.hot_tab_rb);
