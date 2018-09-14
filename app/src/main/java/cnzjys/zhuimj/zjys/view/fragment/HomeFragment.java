@@ -24,8 +24,10 @@ import cnzjys.zhuimj.zjys.R;
 import cnzjys.zhuimj.zjys.adapter.HomeRvAdapter;
 import cnzjys.zhuimj.zjys.model.HomeMultipleItem;
 import cnzjys.zhuimj.zjys.model.bean.BannerBean;
+import cnzjys.zhuimj.zjys.model.bean.BroadcastBean;
 import cnzjys.zhuimj.zjys.model.bean.HomeBean;
 import cnzjys.zhuimj.zjys.model.bean.VideoStationBean;
+import cnzjys.zhuimj.zjys.model.entity.BroadcastEntity;
 import cnzjys.zhuimj.zjys.model.entity.HomeBannerEntity;
 import cnzjys.zhuimj.zjys.model.entity.HomePageEntity;
 import cnzjys.zhuimj.zjys.model.entity.VideoStationEntity;
@@ -110,17 +112,28 @@ public class HomeFragment extends Fragment implements OnBannerListener{
        mHomeRv.addItemDecoration(new DividerGridItemDecoration(mContext));
 
        mHomeRvAdapter = new HomeRvAdapter(mMultipleItems);
-
        mHomeRvAdapter.setSpanSizeLookup(new BaseQuickAdapter.SpanSizeLookup() {
             @Override
             public int getSpanSize(GridLayoutManager gridLayoutManager, int position) {
                 int type = mMultipleItems.get(position).getItemType();
-                if (type == HomeMultipleItem.BANNER) {
+                /*if (type == HomeMultipleItem.BANNER) {
                     return HomeMultipleItem.BANNER_SPAN_SIZE;
+                }else if (type == HomeMultipleItem.BROADCAST){
+                  return HomeMultipleItem.BROADCAST_SPAN_SIZE;
                 } else {
                     return HomeMultipleItem.VIP_SPAN_SIZE;
+                }*/
+                switch (type){
+                    case HomeMultipleItem.BANNER:
+                        return HomeMultipleItem.BANNER_SPAN_SIZE;
+                    case HomeMultipleItem.BROADCAST:
+                        return HomeMultipleItem.BROADCAST_SPAN_SIZE;
+                    case HomeMultipleItem.VIP_HEADER:
+                        return HomeMultipleItem.VIP_HEADER_SPAN_SIZE;
+                    case HomeMultipleItem.VIP:
+                        return HomeMultipleItem.VIP_SPAN_SIZE;
                 }
-
+                return 0;
             }
        });
        mHomeRv.setAdapter(mHomeRvAdapter);
@@ -155,6 +168,10 @@ public class HomeFragment extends Fragment implements OnBannerListener{
                     public void onNext(HomePageEntity homePageEntity) {
                         mMultipleItems.add(new HomeMultipleItem(HomeMultipleItem.BANNER,
                                 HomeMultipleItem.BANNER_SPAN_SIZE, mHomeBeanList));
+                        mMultipleItems.add(new HomeMultipleItem(HomeMultipleItem.BROADCAST,
+                                HomeMultipleItem.BANNER_SPAN_SIZE, mHomeBeanList));
+                        mMultipleItems.add(new HomeMultipleItem(HomeMultipleItem.VIP_HEADER,
+                                HomeMultipleItem.VIP_SPAN_SIZE));
                         for (int i = 0; i < 8; i++) {
                             mMultipleItems.add(new HomeMultipleItem(HomeMultipleItem.VIP,
                                     HomeMultipleItem.VIP_SPAN_SIZE, mHomeBeanList));
@@ -166,6 +183,14 @@ public class HomeFragment extends Fragment implements OnBannerListener{
                             bannerBean.setBannerUrl(bannerEntity.getContentUrl());
                             bannerBean.setBannerImageUrl(bannerEntity.getBannerUrl());
                             mHomeBeanList.add(bannerBean);
+                        }
+
+                        List<BroadcastEntity> broadcastEntities = homePageEntity.getBroadcastList();
+                        for (BroadcastEntity broadcastEntity : broadcastEntities){
+                            BroadcastBean broadcastBean = new BroadcastBean();
+                            broadcastBean.setContent(broadcastEntity.getContent());
+                            broadcastBean.setContentUrl(broadcastEntity.getContentUrl());
+                            mHomeBeanList.add(broadcastBean);
                         }
 
                         List<VideoStationEntity> videoStationEntities =

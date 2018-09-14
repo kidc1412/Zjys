@@ -5,6 +5,7 @@ import java.util.List;
 public class HomePageEntity {
 
     private List<HomeBannerEntity> homeBannerList;
+    private List<BroadcastEntity> broadcastList;
     private List<VideoStationEntity> videoStationList;
 
     public List<HomeBannerEntity> getHomeBannerList() {
@@ -21,5 +22,13 @@ public class HomePageEntity {
 
     public void setVideoStationList(List<VideoStationEntity> videoStationList) {
         this.videoStationList = videoStationList;
+    }
+
+    public List<BroadcastEntity> getBroadcastList() {
+        return broadcastList;
+    }
+
+    public void setBroadcastList(List<BroadcastEntity> broadcastList) {
+        this.broadcastList = broadcastList;
     }
 }

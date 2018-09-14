@@ -9,8 +9,12 @@ import cnzjys.zhuimj.zjys.model.bean.HomeBean;
 public class HomeMultipleItem implements MultiItemEntity{
 
     public static final int BANNER = 1;
-    public static final int VIP = 2;
+    public static final int BROADCAST = 2;
+    public static final int VIP_HEADER = 3;
+    public static final int VIP = 4;
     public static final int BANNER_SPAN_SIZE = 4;
+    public static final int BROADCAST_SPAN_SIZE = 4;
+    public static final int VIP_HEADER_SPAN_SIZE = 4;
     public static final int VIP_SPAN_SIZE = 1;
     private int itemType;
     private int spanSize;
