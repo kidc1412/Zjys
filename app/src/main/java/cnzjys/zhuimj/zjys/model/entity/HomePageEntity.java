@@ -7,6 +7,7 @@ public class HomePageEntity {
     private List<HomeBannerEntity> homeBannerList;
     private List<BroadcastEntity> broadcastList;
     private List<VideoStationEntity> videoStationList;
+    private List<HomeAdEntity> homeAdList;
 
     public List<HomeBannerEntity> getHomeBannerList() {
         return homeBannerList;
@@ -30,5 +31,13 @@ public class HomePageEntity {
 
     public void setBroadcastList(List<BroadcastEntity> broadcastList) {
         this.broadcastList = broadcastList;
+    }
+
+    public List<HomeAdEntity> getHomeAdList() {
+        return homeAdList;
+    }
+
+    public void setHomeAdList(List<HomeAdEntity> homeAdList) {
+        this.homeAdList = homeAdList;
     }
 }

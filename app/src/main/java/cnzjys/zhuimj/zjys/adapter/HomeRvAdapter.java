@@ -6,6 +6,7 @@ import com.chad.library.adapter.base.MultipleItemRvAdapter;
 import java.util.List;
 import cnzjys.zhuimj.zjys.adapter.provider.BannerProvider;
 import cnzjys.zhuimj.zjys.adapter.provider.BroadcastProvider;
+import cnzjys.zhuimj.zjys.adapter.provider.HomeAdProvider;
 import cnzjys.zhuimj.zjys.adapter.provider.VideoStationProvider;
 import cnzjys.zhuimj.zjys.adapter.provider.VipHeaderProvider;
 import cnzjys.zhuimj.zjys.model.HomeMultipleItem;
@@ -16,6 +17,7 @@ public class HomeRvAdapter extends MultipleItemRvAdapter<HomeMultipleItem, BaseV
     private static final int BROADCAST = HomeMultipleItem.BROADCAST;
     private static final int VIP_HEADER = HomeMultipleItem.VIP_HEADER;
     private static final int VIP = HomeMultipleItem.VIP;
+    private static final int AD = HomeMultipleItem.AD;
 
     public HomeRvAdapter(@Nullable List<HomeMultipleItem> data) {
         super(data);
@@ -37,6 +39,8 @@ public class HomeRvAdapter extends MultipleItemRvAdapter<HomeMultipleItem, BaseV
                 return VIP_HEADER;
             case HomeMultipleItem.VIP:
                 return VIP;
+            case HomeMultipleItem.AD:
+                return AD;
         }
         return 0;
     }
@@ -49,7 +53,7 @@ public class HomeRvAdapter extends MultipleItemRvAdapter<HomeMultipleItem, BaseV
         mProviderDelegate.registerProvider(new BroadcastProvider());
         mProviderDelegate.registerProvider(new VipHeaderProvider());
         mProviderDelegate.registerProvider(new VideoStationProvider());
-
+        mProviderDelegate.registerProvider(new HomeAdProvider());
     }
 
 

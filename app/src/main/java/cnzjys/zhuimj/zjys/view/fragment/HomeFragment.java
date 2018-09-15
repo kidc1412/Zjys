@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,12 +23,15 @@ import java.util.List;
 
 import cnzjys.zhuimj.zjys.R;
 import cnzjys.zhuimj.zjys.adapter.HomeRvAdapter;
+import cnzjys.zhuimj.zjys.constant.Constant;
 import cnzjys.zhuimj.zjys.model.HomeMultipleItem;
 import cnzjys.zhuimj.zjys.model.bean.BannerBean;
 import cnzjys.zhuimj.zjys.model.bean.BroadcastBean;
+import cnzjys.zhuimj.zjys.model.bean.HomeAdBean;
 import cnzjys.zhuimj.zjys.model.bean.HomeBean;
 import cnzjys.zhuimj.zjys.model.bean.VideoStationBean;
 import cnzjys.zhuimj.zjys.model.entity.BroadcastEntity;
+import cnzjys.zhuimj.zjys.model.entity.HomeAdEntity;
 import cnzjys.zhuimj.zjys.model.entity.HomeBannerEntity;
 import cnzjys.zhuimj.zjys.model.entity.HomePageEntity;
 import cnzjys.zhuimj.zjys.model.entity.VideoStationEntity;
@@ -130,25 +134,13 @@ public class HomeFragment extends Fragment implements OnBannerListener{
                         return HomeMultipleItem.VIP_HEADER_SPAN_SIZE;
                     case HomeMultipleItem.VIP:
                         return HomeMultipleItem.VIP_SPAN_SIZE;
+                    case HomeMultipleItem.AD:
+                        return HomeMultipleItem.AD_SPAN_SIZE;
                 }
                 return 0;
             }
        });
        mHomeRv.setAdapter(mHomeRvAdapter);
-    }
-
-
-
-    /**
-     * 跳转到内置浏览器
-     * @param pos 视频站列表的position
-     */
-    private void startToWebActivity(int pos){
-        /*Intent intent = new Intent(getContext(), WebViewActivity.class);
-        intent.putExtra(Constant.WEB_URL, mVideoStationBeanList.get(pos).getVideoStationUrl());
-        intent.putExtra(Constant.CURRENT_WEB_NAME, mVideoStationBeanList.get(pos)
-                .getVideoStationName());
-        startActivity(intent);*/
     }
 
     private void getHomePageData(){
@@ -170,10 +162,12 @@ public class HomeFragment extends Fragment implements OnBannerListener{
                                 HomeMultipleItem.BANNER_SPAN_SIZE, mHomeBeanList));
                         mMultipleItems.add(new HomeMultipleItem(HomeMultipleItem.VIP_HEADER,
                                 HomeMultipleItem.VIP_SPAN_SIZE));
-                        for (int i = 0; i < 8; i++) {
+                        for (int i = 0; i < Constant.VIDEO_STATION_SIZE; i++) {
                             mMultipleItems.add(new HomeMultipleItem(HomeMultipleItem.VIP,
                                     HomeMultipleItem.VIP_SPAN_SIZE, mHomeBeanList));
                         }
+                        mMultipleItems.add(new HomeMultipleItem(HomeMultipleItem.AD,
+                                HomeMultipleItem.AD_SPAN_SIZE, mHomeBeanList));
 
                         List<HomeBannerEntity> bannerEntities = homePageEntity.getHomeBannerList();
                         for (HomeBannerEntity bannerEntity : bannerEntities){
@@ -201,6 +195,13 @@ public class HomeFragment extends Fragment implements OnBannerListener{
                             mHomeBeanList.add(videoStationBean);
                         }
 
+                        List<HomeAdEntity> homeAdEntities = homePageEntity.getHomeAdList();
+                        for (HomeAdEntity homeAdEntity : homeAdEntities){
+                            HomeAdBean homeAdBean = new HomeAdBean();
+                            homeAdBean.setAdImageUrl(homeAdEntity.getAdImageUrl());
+                            homeAdBean.setAdUrl(homeAdEntity.getAdUrl());
+                            mHomeBeanList.add(homeAdBean);
+                        }
                         mHomeRvAdapter.notifyDataSetChanged();
                     }
 
@@ -263,12 +264,4 @@ public class HomeFragment extends Fragment implements OnBannerListener{
         void onFragmentInteraction(Uri uri);
     }
 
-    public class GlideImageLoader extends ImageLoader {
-
-        @Override
-        public void displayImage(Context context, Object path, ImageView imageView) {
-            //Glide 加载图片简单用法
-            Glide.with(context).load(path).into(imageView);
-        }
-    }
 }

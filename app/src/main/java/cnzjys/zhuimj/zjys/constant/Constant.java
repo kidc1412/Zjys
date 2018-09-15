@@ -7,4 +7,7 @@ public class Constant {
 
     public final static String WEB_URL = "webUrl";
     public final static String CURRENT_WEB_NAME = "currentWebStationName";
+
+    //视频站显示的图标数量
+    public final static int VIDEO_STATION_SIZE = 8;
 }
