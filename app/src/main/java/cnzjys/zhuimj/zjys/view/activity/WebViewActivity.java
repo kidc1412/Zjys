@@ -15,6 +15,9 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.r0adkll.slidr.Slidr;
 
@@ -24,31 +27,42 @@ import cnzjys.zhuimj.zjys.utils.StateBarUtils;
 
 public class WebViewActivity extends AppCompatActivity {
 
-    private Toolbar mToolbar;
-    private FrameLayout webViewPanel;
+    private FrameLayout mWebViewPanel;
     private WebView mWebView;
     private String webUrl;
-    private String currentWebName;
+    private String mCurrentWebName;
+    private ViewGroup mToolBarPanel;
+    private TextView mTitleTv;
+    private ImageView mBackIv;
+    private TextView mPlayTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_web_view);
 
-        StateBarUtils.transparentStateBar(this);
-        Slidr.attach(this);
         webUrl = getIntent().getStringExtra(Constant.WEB_URL);
-        currentWebName = getIntent().getStringExtra(Constant.CURRENT_WEB_NAME);
+        mCurrentWebName = getIntent().getStringExtra(Constant.CURRENT_WEB_NAME);
         initView();
         initListener();
     }
 
     private void initView(){
-        mToolbar = findViewById(R.id.web_view_toolbar);
-        mToolbar.setTitle(currentWebName);
-        setSupportActionBar(mToolbar);
+        StateBarUtils.transparentStateBar(this);
+        Slidr.attach(this);
 
-        webViewPanel = findViewById(R.id.web_view_panel);
+        mToolBarPanel = findViewById(R.id.web_view_toolbar_panel);
+        mToolBarPanel.setPadding(0, StateBarUtils.getStatusBarHeight(this), 0,
+                0);
+
+        mTitleTv = findViewById(R.id.web_view_toolbar_title_tv);
+        mTitleTv.setText(mCurrentWebName);
+        mBackIv = findViewById(R.id.web_view_toolbar_back_iv);
+        mPlayTv = findViewById(R.id.web_view_toolbar_play_tv);
+
+        mWebViewPanel = findViewById(R.id.web_view_panel);
+
         initWebView();
     }
 
@@ -57,7 +71,7 @@ public class WebViewActivity extends AppCompatActivity {
         mWebView = new WebView(getApplicationContext());
         mWebView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
-        webViewPanel.addView(mWebView);
+        mWebViewPanel.addView(mWebView);
 
         mWebView.setWebViewClient(new WebViewClient(){
             @Override
@@ -96,11 +110,8 @@ public class WebViewActivity extends AppCompatActivity {
     }
 
     private void initListener(){
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        mBackIv.setOnClickListener(v -> finish());
+        mPlayTv.setOnClickListener(v -> Toast.makeText(
+                WebViewActivity.this, "播放", Toast.LENGTH_SHORT).show());
     }
 }
